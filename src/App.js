@@ -38,15 +38,24 @@ function Board() {
   }
 
   function handleClick(i){
-    if (squares[i]) return;
+    if (squares[i] || calculateWinner(squares)) return;
     const nextSquares = squares.slice();
     nextSquares[i] = xIsNext ? 'X' : 'O';
     setSquares(nextSquares);
     setIsNext(!xIsNext);
   }
 
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner){
+    status = "Player " + winner + " has won!";
+  }
+  else{
+    status = "Player " + (xIsNext ? 'X' : 'O') + "'s turn!";
+  }
   return (
     <>
+      <div className='status'>{status}</div>
       <div className='board-row'>
         <Square value = {squares[0]} onSquareClick = {() => handleClick(0)}/> 
         <Square value = {squares[1]} onSquareClick = {() => handleClick(1)}/>
