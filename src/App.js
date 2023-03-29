@@ -12,7 +12,7 @@ function Square({value, onSquareClick}){
   );
 }
 
-function Board({xIsNext, squares, onPlay}) {
+function Board({xIsNext, squares, onPlay, currentMove}) {
   function calculateWinner(squares){
     const winConds = [
       [0,1,2],
@@ -30,6 +30,14 @@ function Board({xIsNext, squares, onPlay}) {
         return squares[a];
       }
     }
+    // for(let i = 0; i<9; i++){
+    //   if (squares[i]){
+    //     continue;
+    //   }
+    //   else{
+    //     return null;
+    //   }
+    // }
     return null;
   }
 
@@ -45,10 +53,15 @@ function Board({xIsNext, squares, onPlay}) {
   const winner = calculateWinner(squares);
   let status;
   if (winner){
-    status = "Player " + winner + " has won!";
+    status = "Player " + winner + " has won!"; 
   }
   else{
-    status = "Player " + (xIsNext ? 'X' : 'O') + "'s turn!";
+    if (currentMove > 8){
+      status = "This game is a tie!";
+    }
+    else{
+      status = "Player " + (xIsNext ? 'X' : 'O') + "'s turn!";
+    }
   }
   return (
     <>
@@ -111,7 +124,7 @@ function Game(){
           <h1 className='game-title'>Shin's TicTacToe Game</h1>
         </div>
         <div className='game-board'>
-          <Board xIsNext = {xIsNext} squares = {currentSquares} onPlay = {handlePlay}/>
+          <Board xIsNext = {xIsNext} squares = {currentSquares} onPlay = {handlePlay} currentMove = {history.length - 1}/>
         </div>
         <div className='game-info'>
           <ol>
