@@ -30,14 +30,6 @@ function Board({xIsNext, squares, onPlay, currentMove}) {
         return squares[a];
       }
     }
-    // for(let i = 0; i<9; i++){
-    //   if (squares[i]){
-    //     continue;
-    //   }
-    //   else{
-    //     return null;
-    //   }
-    // }
     return null;
   }
 
